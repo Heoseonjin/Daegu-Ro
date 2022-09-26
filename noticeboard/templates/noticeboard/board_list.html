@@ -22,7 +22,7 @@
                                 <tr>
                                     <th scope="row">{{ p.pk }}</th>
                                     <td><a href="{{ p.get_absolute_url }}">{{ p.title }}</a></td>
-                                    <td>member</td>
+                                    <td>{{ p.author }}</td>
                                     <td>{{ p.created_at }}</td>
                                 </tr>
                             </tbody>
