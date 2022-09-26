@@ -1,18 +1,82 @@
-<!DOCTYPE html>
-<html lang="ko">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Daegu-ro</title>
-</head>
-<body>
-    <h2>Daeguro</h2>
-    {% for p in object_list %}
-    <hr/>
-    <h3><a href="{{ p.get_absolute_url }}">{{ p.title }}</a></h3>
-    <h4>{{ p.content }}</h4>
-    <p>{{ p.created_at }}</p>
-    {% endfor %}
-</body>
-</html>
+{% extends 'base.html' %}
+{% block contents %}
+    <!-- Page content-->
+    <div class="container mt-5">
+        <div class="row">
+            <div class="col-lg-8">
+                <!-- Post content-->
+                <article>
+                    <!-- Post header-->
+                    <header class="mb-4">
+                        <table class="table">
+                            <thead class="thead-light">
+                                <tr>
+                                    <th scope="col">No.</th>
+                                    <th scope="col">제목</th>
+                                    <th scope="col">아이디</th>
+                                    <th scope="col">작성일</th>
+                                </tr>
+                            </thead>
+                            {% for p in post_list %}
+                            <tbody>
+                                <tr>
+                                    <th scope="row">{{ p.pk }}</th>
+                                    <td><a href="{{ p.get_absolute_url }}">{{ p.title }}</a></td>
+                                    <td>member</td>
+                                    <td>{{ p.created_at }}</td>
+                                </tr>
+                            </tbody>
+                            {% endfor %}
+                        </table>
+                        <div class="row">
+                            <div class="col-12">
+                                <button class="btn btn-primary">글쓰기</button>
+                            </div>
+                        </div>
+                    </header>
+                </article>
+            </div>
+            <!-- Side widgets-->
+            <div class="col-lg-4">
+                <!-- Search widget-->
+                <div class="card mb-4">
+                    <div class="card-header">Search</div>
+                    <div class="card-body">
+                        <div class="input-group">
+                            <input class="form-control" type="text" placeholder="Enter search term..." aria-label="Enter search term..." aria-describedby="button-search" />
+                            <button class="btn btn-primary" id="button-search" type="button">Go!</button>
+                        </div>
+                    </div>
+                </div>
+                <!-- Categories widget-->
+                <div class="card mb-4">
+                    <div class="card-header">Categories</div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <ul class="list-unstyled mb-0">
+                                    <li><a href="#!">Web Design</a></li>
+                                    <li><a href="#!">HTML</a></li>
+                                    <li><a href="#!">Freebies</a></li>
+                                </ul>
+                            </div>
+                            <div class="col-sm-6">
+                                <ul class="list-unstyled mb-0">
+                                    <li><a href="#!">JavaScript</a></li>
+                                    <li><a href="#!">CSS</a></li>
+                                    <li><a href="#!">Tutorials</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Side widget-->
+                <div class="card mb-4">
+                    <div class="card-header">Side Widget</div>
+                    <div class="card-body">You can put anything you want inside of these side widgets. They are easy to use, and feature the Bootstrap 5 card component!</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock contents %}

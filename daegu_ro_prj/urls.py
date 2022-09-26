@@ -17,6 +17,7 @@ from django.contrib import admin
 from django.urls import path, include
 
 urlpatterns = [
-    path('', include('noticeboard.urls')),
+    path('', include('single_pages.urls')),
+    path('board/', include('noticeboard.urls')),
     path('admin/', admin.site.urls),
 ]
