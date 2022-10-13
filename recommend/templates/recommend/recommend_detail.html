@@ -1,0 +1,80 @@
+{% extends 'base.html' %}
+
+{% block contents %}
+
+<div class="row">
+    <div class="col-lg-12">
+        <!-- Post content-->
+        <article>
+            <!-- Post header-->
+            <header class="mb-4">
+                <!-- Post title-->
+                <span class="badge badge-secondary float-right">{{ recommend.category }}</span>
+                <h1 class="fw-bolder mb-1 text-center">{{ recommend.name }}</h1><br>
+                <hr>
+                <!-- Post meta content-->
+                <div class="fst-italic mb-2 text-center">tel: {{ recommend.tel }} <br>
+                </div><hr><br>
+                <h3> * 소개 * </h3>
+                <p>{{ recommend.contents }}</p>
+                <br><hr>
+            </header>
+            <!-- Post content-->
+            <div style="margin-top: 4em;">
+                <h3> * 위치: {{ recommend.address }} *</h3><br>
+                <div id="map" style="width:100%;height:600px;"></div>
+                <div id="lat" style="display: none">
+                    {{ recommend.lat }}
+                </div>
+                <div id="lon" style="display: none">
+                    {{ recommend.lon }}
+                </div>
+                <div id="name" style="display: none">
+                    {{ recommend.name }}
+                </div>
+                <script type="text/javascript"
+                    src="//dapi.kakao.com/v2/maps/sdk.js?appkey=3319ecdda0983e14fa5f16ab1166eab8&libraries=services,clusterer,drawing"></script>
+                <script>
+                    var container = document.getElementById('map');
+                    var options = {
+                        center: new kakao.maps.LatLng(35.86437, 128.59264),
+                        level: 5
+                    };
+                    var map = new kakao.maps.Map(container, options);
+                    var markerPosition = new kakao.maps.LatLng(35.86910, 128.58318);
+                    var marker = new kakao.maps.Marker({
+                        position: markerPosition
+                    })
+                    var map = new kakao.maps.Map(container, options);
+                    // 문자열을 가져오고 , 기준으로 문자열을 쪼개기
+                    var list_lat = document.getElementById('lat').innerText.split(',');
+                    var list_lon = document.getElementById('lon').innerText.split(',');
+                    var list_name = document.getElementById('name').innerText.split(',');
+                    // 좌표를 저장할 배열 생성
+                    var locations = new Array();
+                    // 위도와 경도 정보를 차례로 좌표를 배열에 저장
+                    for (var idx = 0; idx < list_lat.length; idx++) {
+                        var latitude = list_lat[idx];
+                        var longitude = list_lon[idx];
+                        locations.push(new kakao.maps.LatLng(latitude, longitude));
+                    }
+                    // 저장한 좌표 수만큼 지도에 marker
+                    for (var idx = 0; idx < locations.length; idx++) {
+                        var marker = new kakao.maps.Marker({
+                            map: map,
+                            position: locations[idx],
+                            title: list_name[idx]
+                        });
+                    }
+                    marker.setMap(map);
+                </script>
+            </div>
+        </article>
+        <div class="text-center" style="margin-top: 5em;">
+            <a role="button" class="btn btn-outline-dark col-lg-12" href="/recommend/">목록으로</a>
+        </div>
+
+    </div>
+</div>
+
+{% endblock contents %}

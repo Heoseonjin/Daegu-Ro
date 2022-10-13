@@ -2,19 +2,18 @@
 {% block contents %}
     <!-- Page content-->
     <div class="container mt-5">
+        <div class="row">
+            <div class="col-lg-9">
                 <!-- Post content-->
                 <article>
                     <!-- Post header-->
                     <header class="mb-4">
-                        <h2 class="text-center">추천 게시판
+                        <h2>게시판
                             {% if search_info %} <small class="text_muted">{{ search_info }}</small>{% endif %}
                         </h2><br>
-                        <p class="text-center">좋았던 여행지를 자유롭게 추천해주세요.</p><br>
-
-                        <table class="table text-center">
+                        <table class="table">
                             <thead class="thead-light">
                                 <tr>
-                                    <th scope="col">No.</th>
                                     <th scope="col">제목</th>
                                     <th scope="col">카테고리</th>
                                     <th scope="col">아이디</th>
@@ -24,26 +23,27 @@
                             {% for p in post_list %}
                             <tbody>
                                 <tr>
-                                    <td>{{ p.id }}</td>
                                     <td><a href="{{ p.get_absolute_url }}">{{ p.title }}</a></td>
                                     <td>{{ p.category }}</td>
                                     <td>{{ p.author }}</td>
                                     <td>{{ p.created_at }}</td>
                                 </tr>
                             </tbody>
-                            {% endfor %}                            
+                            {% endfor %}
                         </table>
-                        
 
                         {% if user.is_authenticated %}
                             {% if user.is_superuser or user.is_staff %}
-                                <a class="btn btn-info btn-sm float-right" href="/board/create_post/" role="button"><i class="'fas fa-pen"></i>글쓰기</a>
+                                <a class="btn btn-info btn-sm float-right" href="/board/create_post/" role="button"><i class="'fas fa-pen"></i>New Post</a>
                             {% endif %}
                         {% endif %}
-                    </header><br><br>
+                    </header>
                 </article>
             </div>
-
+            <!-- Side widgets-->
+            <div class="col-lg-3">
+                <header class="mb-4">
+                    <h3>ㅤ</h3><br>
                 <!-- Search widget-->
                 <div class="card">
                     <h5 class="card-header">검색</h5>
@@ -57,24 +57,24 @@
                     </div>
                 </div>
 
-                <!-- Categories widget -->
-                <!-- <div class="card mb-4" id="categories-card">
+                <!-- Categories widget-->
+                <div class="card mb-4">
                     <div class="card-header">Categories</div>
                     <div class="card-body">
                         <div class="row">
                             <div class="col-sm">
                                 <ul>
-                                    <li><a href="/board/">전체</a></li>
                                     {% for category in categories %}
                                     <li><a href="{{ category.get_absolute_url }}">{{ category }} ({{category.post_set.count }})</a></li>
                                     {% endfor %}
-                                    <li><a href="/board/category/no_category/">미분류 ({{ no_category_post_count }})</a></li>
+                                    <li><a href="#">미분류 ({{ no_category_post_count }})</a></li>
                                 </ul>
                             </div>
                         </div>
                     </div>
-                </div> -->
-
+                </div>
+            </div>
+        </div>
     </div>
 
     <script>
